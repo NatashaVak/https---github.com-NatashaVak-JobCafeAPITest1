@@ -1,6 +1,6 @@
 ///<reference types = "Cypress"/>
 import { data } from '../fixtures/params.json'
-
+let date = new Date().toJSON()
 describe('Get Jobs Test', () => {
 
     let positionBody = {
@@ -12,7 +12,7 @@ describe('Get Jobs Test', () => {
         "description": "some text",
         "time": "two hours ago",
         "salary": "100k",
-        "date": "2020-06-06T12:00:00"
+        "date": date
     }
 
     let adminKey = 'adminadmin'
@@ -29,7 +29,7 @@ describe('Get Jobs Test', () => {
             id = response.body.id
             expect(response.status).equal(201)
             expect(response.body.company).equal('mycompanylev1')
-
+            cy.deletePositionById(id)
         })
     })
 
@@ -46,14 +46,7 @@ describe('Get Jobs Test', () => {
                 expect(response.status).equal(201)
                 expect(response.body.company).equal(element.company)
                 cy.deletePositionById(id)
-
             })
         })
-    })
-
-    afterEach(() => {
-        cy.deletePositionById(id)
-    })
-
-
+   })
 })
